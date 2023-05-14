@@ -36,7 +36,14 @@
     transform: rotate(360deg);
   }
 }
-#myBox::placeholder {
-    color: #ff0000;
-    opacity: 1;
+.myDarkBox::placeholder {
+    color: black;
+    opacity: 0.6;
+} 
+.myLightBox::placeholder {
+    color: white;
+    opacity: 0.6;
+} 
+.accordion-button::after {
+    filter: invert(1);
 }

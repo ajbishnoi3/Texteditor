@@ -4,15 +4,27 @@ export default function Textform(props) {
     let newtext = text.toUpperCase();
     setText(newtext);
   };
-    /* const mystyle = {
-     #myBox::placeholder{
-    color: red;
-}
-    };*/
-    const handleCapitalize = () => {
-      let newText = text.split(" ").map((el) => el.charAt(0).toUpperCase() + el.slice(1)).join(" ");
-      setText(newText);
-    };
+  let box;
+  if (props.mode === "light") {
+    box = "myDarkBox";
+  } else {
+    box = "myLightBox";
+  }
+
+  const handleCapitalize = () => {
+    let splittext = text
+      .replaceAll(",", "▫️▫️")
+      .split(" ")
+      .map((el) => el.split(/\n/));
+    let newText = splittext
+      .map((e) =>
+        e.map((a) => a.charAt(0).toUpperCase() + a.slice(1).toLowerCase())
+      )
+      .join(" ")
+      .replaceAll(",", "\n")
+      .replaceAll("▫️▫️", ",");
+    setText(newText);
+  };
   const handleReset = () => {
     setText("");
   };
@@ -43,7 +55,7 @@ export default function Textform(props) {
         <textarea
           className={`form-control text-${
             props.mode === "light" ? "Dark" : "light"
-          } bg-${props.mode}`}
+          } bg-${props.mode} ${box}`}
           placeholder="Enter hear to get started ......"
           value={text}
           onChange={handleOnChange}
@@ -109,7 +121,7 @@ export default function Textform(props) {
       <div className="container">
         <p className={`text-${props.mode === "light" ? "Dark" : "light"}`}>
           {
-            text.split(" ").filter((element) => {
+            text.split(/\s+/).filter((element) => {
               return element.length !== 0;
             }).length
           }{" "}
@@ -126,4 +138,3 @@ export default function Textform(props) {
     </>
   );
 }
- 
